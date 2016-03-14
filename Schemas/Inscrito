@@ -1,0 +1,36 @@
+<Schema name="Inscrito - PS">
+  <Cube name="Inscrito" caption="Inscritos" visible="true" cache="true" enabled="true">
+    <Table name="f_inscrito" schema="public">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="campus_sk" highCardinality="false" name="campus" caption="Campus">
+      <Hierarchy name="dim_campus" visible="true" hasAll="true" allMemberCaption="Todos" primaryKey="campus_sk" caption="Campus">
+        <Table name="d_campus" schema="public">
+        </Table>
+        <Level name="campus" visible="true" column="nome_campus" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Campus">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="curso_sk" highCardinality="false" name="Curso" caption="Curso">
+      <Hierarchy name="dim_curso" visible="true" hasAll="true" allMemberCaption="Todos" primaryKey="curso_sk" caption="Curso">
+        <Table name="d_curso" schema="public">
+        </Table>
+        <Level name="curso" visible="true" column="nome_curso" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never" caption="Curso">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="data_sk" highCardinality="false" name="Data" caption="Data">
+      <Hierarchy name="Data" visible="true" hasAll="true" allMemberCaption="Todos" primaryKey="data_sk">
+        <Table name="d_data" schema="public">
+        </Table>
+        <Level name="ano" visible="true" column="ano" type="Integer" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never" caption="Ano">
+        </Level>
+        <Level name="mes" visible="true" column="mes" type="Integer" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never" caption="M&#234;s" captionColumn="mes_desc">
+        </Level>
+        <Level name="Dia" visible="true" column="dia_do_mes" type="Integer" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never" caption="Dia">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="quantidade" column="quantidade" datatype="Integer" aggregator="sum" caption="Quantidade" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
