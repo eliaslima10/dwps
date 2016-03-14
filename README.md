@@ -1,4 +1,4 @@
-# dwps - Data Warehouse Processo Seletivo (Exemplo)
+# dwps - Data Warehouse Processo Seletivo
 ## Pentaho + Básico Modelagem Dimensional
 <p>
   Requisitos básicos:<br/>
@@ -12,5 +12,8 @@
     3. Transformations (PDI) para popular as tabelas do DW;<br/>
     4. Arquivo XML com as definições do Cubo.<br/><br/>
   Banco de Dados:<br/>
-    1. Postgres 9.x  - Baixar do site oficial do Postgres.<br/>
+    1. Postgres 9.x  - Baixar do site oficial do Postgres.<br/><br/>
+  Transformation para dimensão data:<br/>
+    Criado por Fábio de Salles (https://geekbi.wordpress.com/)
+</p>
 
