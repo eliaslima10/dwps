@@ -69,7 +69,7 @@
   <created_date>2016&#x2f;03&#x2f;11 11&#x3a;00&#x3a;30.532</created_date>
   <modified_user>-</modified_user>
   <modified_date>2016&#x2f;03&#x2f;11 11&#x3a;00&#x3a;30.532</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -204,6 +204,30 @@
     <type>POSTGRESQL</type>
     <access>Native</access>
     <database>data_sistec</database>
+    <port>5432</port>
+    <username>admin</username>
+    <password>Encrypted 2be98afc807c9a8bce251ff22ffa1a3d1</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>DW-EDU</name>
+    <server>10.142.142.136</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>DW-EDU</database>
     <port>5432</port>
     <username>admin</username>
     <password>Encrypted 2be98afc807c9a8bce251ff22ffa1a3d1</password>
@@ -463,13 +487,13 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get Data Inscritos</from><to>Dimension lookup&#x2f;update - Campus</to><enabled>Y</enabled> </hop>
-  <hop> <from>Dimension lookup&#x2f;update - Campus</from><to>Dimension lookup&#x2f;update Curso</to><enabled>Y</enabled> </hop>
-  <hop> <from>Dimension lookup&#x2f;update Curso</from><to>Database lookup - Data</to><enabled>Y</enabled> </hop>
-  <hop> <from>Database lookup - Data</from><to>Grava Dados da Fato</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table input</from><to>Dimension lookup&#x2f;update Campus</to><enabled>Y</enabled> </hop>
+  <hop> <from>Dimension lookup&#x2f;update Campus</from><to>Dimension lookup&#x2f;update Curso 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Dimension lookup&#x2f;update Curso 2</from><to>Database lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>Database lookup</from><to>Table output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get Data Inscritos</name>
+    <name>Table input</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -480,7 +504,7 @@
            <schema_name/>
            </partitioning>
     <connection>conn_psu_consolidado</connection>
-    <sql>select distinct&#xa;   unidade_academica_id, curso_id, data_inscricao, count&#x28;id&#x29; as quantidade&#xa;from&#xa;   ficha_inscricao&#xa;group by&#xa;   unidade_academica_id, curso_id, data_inscricao&#xa;</sql>
+    <sql>select distinct&#xa;   unidade_academica_id, curso_id, data_inscricao, count&#x28;id&#x29; as quantidade&#xa;from&#xa;   ficha_inscricao&#xa;group by&#xa;   unidade_academica_id, curso_id, data_inscricao</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -489,13 +513,13 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>128</xloc>
-      <yloc>256</yloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Dimension lookup&#x2f;update - Campus</name>
+    <name>Dimension lookup&#x2f;update Campus</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -538,14 +562,14 @@
       <start_date_field_name/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>320</xloc>
-      <yloc>256</yloc>
+      <xloc>328</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Dimension lookup&#x2f;update Curso</name>
+    <name>Dimension lookup&#x2f;update Curso 2</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -589,13 +613,13 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>544</xloc>
-      <yloc>256</yloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Database lookup - Data</name>
+    <name>Database lookup</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -625,19 +649,19 @@
         <name>data_sk</name>
         <rename>data_sk</rename>
         <default/>
-        <type>None</type>
+        <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
-      <yloc>256</yloc>
+      <xloc>744</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Grava Dados da Fato</name>
+    <name>Table output</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -684,8 +708,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>896</xloc>
-      <yloc>256</yloc>
+      <xloc>944</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
